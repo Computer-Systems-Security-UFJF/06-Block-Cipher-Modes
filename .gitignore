@@ -1,0 +1,7 @@
+ Arquivos binários/intermediários gerados durante o lab
+body.bin
+body.ecb.enc
+ciphertext.txt
+header.txt
+tux.ppm
+tux-ecb-enc.ppm
