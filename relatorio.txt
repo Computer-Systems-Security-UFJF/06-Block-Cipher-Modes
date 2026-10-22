@@ -1,0 +1,37 @@
+Relatório - Modos de Operações em Cifras de Bloco
+
+Aluno:
+Luca Rodrigues Pazna - 202465173AC
+
+--- Visão Geral ---
+
+O SWEET32 é um ataque descoberto em 2016 por dois pesquisadores do INRIA, um
+instituto de pesquisa francês. O nome é uma brincadeira com "sweet sixteen" e com
+o fato de ser um ataque de aniversário com complexidade em torno de 2^32. Basicamente
+o problema está em cifras de bloco de 64 bits, tipo Triple-DES e Blowfish, que eram
+muito usadas em protocolos como TLS e OpenVPN. O que chamou atenção é que o risco
+dessas cifras já era conhecido teoricamente, mas ninguém tinha provado na prática
+até então.
+
+--- Explicação ---
+
+O ataque se aproveita de um limite chamado "birthday bound". Em cifras de 64 bits,
+após cerca de 32 GB de dados cifrados com a mesma chave, o modo CBC começa a
+falhar. Isso acontece porque blocos de cifrotexto começam a colidir, e quando isso
+ocorre dá pra recuperar o XOR entre dois blocos de texto original. Na prática, se
+um cookie de sessão é enviado em toda requisição, um atacante com um script
+JavaScript rodando no navegador da vítima consegue forçar milhares de requisições e
+monitorar o tráfego. Os pesquisadores mostraram que com cerca de 785 GB capturados
+dava pra recuperar o cookie inteiro, levando menos de dois dias no laboratório.
+
+--- Visão Crítica ---
+
+O que mais me chamou atenção nesse caso foi que o problema já era conhecido há
+anos e mesmo assim continuava sendo ignorado. Na época da divulgação, 87% dos
+servidores HTTPS ainda aceitavam o 3DES, alguns até preferindo ele ao AES. Pra mim
+isso mostra que o problema não é só técnico, é mais uma questão de descaso mesmo.
+Segurança não é algo que você configura uma vez e esquece, precisa ser revisada
+constantemente. Ficar usando algoritmo antigo com desculpa de compatibilidade é
+basicamente deixar a porta aberta esperando alguém entrar.
+
+Referência: https://sweet32.info/
